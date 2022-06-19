@@ -1,0 +1,79 @@
+{% extends "chat/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+
+    <div class="row global-row">
+        
+        <div class="global-room-header">
+            <span>
+                <button id="open-left-sidebar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </button>
+            </span>
+            <span>
+                <h1 id="index-header"> <i class="fa fa-globe"></i> Global Chat</h1>
+            </span>
+            <span>
+                <button id="open-friend-sidebar"><h1><i class="fas fa-user-friends"></i></h1></button>
+            </span>
+        </div>
+        <div class="global-chat-container">
+            <div class="loading-con">
+                <div class="loading"></div>
+                <div class="loading"></div>
+                <div class="loading"></div>
+                <div class="loading"></div>
+            </div>
+            <ul class="global-chat-box">
+
+            </ul>
+        </div>
+        <div class="global-chat-message-container">
+            {% if request.user.is_authenticated %} 
+                <div class="input-group">
+                    <textarea id="chat-message-input" type="text" placeholder="Send a message..." title="Send a message. Use shift+enter to insert new line"></textarea>
+                    <div class="input-group-addon" id="basic-addon1">
+                        <button id="chat-message-submit" title="Send">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dropup">
+                        <button class="dropup-btn" title="Markdown Syntax Help"><i class="fas fa-question-circle"></i></button>
+                        <div class="dropup-content">
+                            <div class="dropup-header">
+                                <h5>Markdown Syntax</h5>
+                            </div>
+                            <div class="dropup-syntax">
+                                <p>Header (Large) - <strong>#text</strong></p>
+                                <p>Header (Medium) - <strong>##text</strong></p>
+                                <p>Header (Small) - <strong>###text</strong></p>
+                                <p>Bold - <strong>**text**</strong></p>
+                                <p>Italic - <strong>*text*</strong></p>
+                                <p>Link - <strong>[title](https://www.example.com)</strong></p>
+                                <p>Code Block - <strong>`text`</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %} 
+                <div class="input-group">
+                    <p>Must be logged in to start Chatting.</p>
+                </div>
+            {% endif %}      
+        </div>
+    </div>
+    {{ current_user_global.username|json_script:'current-user-username-global' }}
+    {{ current_user_global.profile.picture.url|json_script:'current-user-picture-global' }}
+
+    <script src="{% static 'chat/js/global_chat.js' %}"></script>
+{% endblock %}
+

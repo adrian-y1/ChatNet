@@ -1,0 +1,56 @@
+{% extends 'chat/layout.html' %}
+
+{% block title %} 
+    Outgoing Friend Requests
+{% endblock %} 
+
+{% block body %} 
+    
+    <div class="row outgoing-r">
+        <div class="outgoing-header">
+            <span>
+                <button id="open-left-sidebar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </button>
+            </span>
+            <span>
+                <h1> <i class="fa fa-arrow-circle-left"></i>Outgoing Friend Requests</h1>
+            </span>
+            <span>
+                <button id="open-friend-sidebar"><h1><i class="fas fa-user-friends"></i></h1></button>
+            </span>
+        </div>
+        <div class="outgoing-con">
+            {% for req in out_req %} 
+                {% if req.request_receiver not in current_user.friend.all %} 
+                    <div class="outgoing-card">
+                        <div class="outgoing-sender">
+                            <a href="{% url 'profile' req.request_receiver.id %}"><img src="{{ req.request_receiver.profile.picture.url }}" alt="" class="rounded-circle"></a>
+                            <a href="{% url 'profile' req.request_receiver.id %}">{{ req.request_receiver }}</a>
+                        </div>
+                        <div class="outgoing-status">
+                            <form action="{% url 'outgoing' %}" method="POST">
+                                {% csrf_token %} 
+                                <input type="hidden" name="receiverid" value="{{ req.request_receiver.id }}">
+                                <button type="submit" id="cancel-friend-request" name="cancel" value="Cancel" class="cancel-btn">
+                                    <svg style="color: White; padding-right: 5px;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-dash-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    </svg>
+                                    Cancel Request
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+                {% empty %}
+                    <div class="empty-req">
+                        <p>No Outgoing Friend Requests.</p>
+                    </div>
+            {% endfor %}
+        </div>
+    </div> 
+
+{% endblock %}

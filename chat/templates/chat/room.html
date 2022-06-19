@@ -1,0 +1,80 @@
+{% extends "chat/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Chat - {{ other_user }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row room-row">
+        <div class="room-header">
+            <span>
+                <button id="open-left-sidebar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </button>
+            </span>
+            <span>
+                <img src="{{ other_user.profile.picture.url }}" class="rounded-circle">
+                <a href="{% url 'profile' other_user.id %}">{{ other_user }}</a>    
+            </span>
+            <span>
+                <button id="open-friend-sidebar"><h1><i class="fas fa-user-friends"></i></h1></button>
+            </span>
+        </div>
+        <div class="chat-container">
+            <div class="loading-con">
+                <div class="loading"></div>
+                <div class="loading"></div>
+                <div class="loading"></div>
+                <div class="loading"></div>
+            </div>
+            <ul class="chat-box">
+            </ul>
+        </div>
+        <div class="chat-message-container">
+            <div class="input-group">
+                <textarea id="chat-message-input" type="text" class="chat-message-input" placeholder="Send a message..." title="Send a message. Use shift+enter to insert new line"></textarea>
+                <div class="input-group-addon">
+                    <button id="chat-message-submit" title="Send">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="dropup">
+                    <button class="dropup-btn" title="Markdown Syntax Help"><i class="fas fa-question-circle"></i></button>
+                    <div class="dropup-content">
+                        <div class="dropup-header">
+                            <h5>Markdown Syntax</h5>
+                        </div>
+                        <div class="dropup-syntax">
+                            <p>Header (Large) - <strong>#text</strong></p>
+                            <p>Header (Medium) - <strong>##text</strong></p>
+                            <p>Header (Small) - <strong>###text</strong></p>
+                            <p>Bold - <strong>**text**</strong></p>
+                            <p>Italic - <strong>*text*</strong></p>
+                            <p>Link - <strong>[title](https://www.example.com)</strong></p>
+                            <p>Code Block - <strong>`text`</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ other_user.username|json_script:'other-user-name' }}
+    {{ other_user.id|json_script:"other-user-id" }}
+
+    {{ request.user.username|json_script:"current-user-id" }}
+    {{ request.user.id|json_script:'current-user-identification' }}
+    {{ current_time|json_script:"current-time"}}
+
+    {{ request.user.profile.picture.url|json_script:'current-user-profile-pic' }}
+
+    {{ other_user.profile.picture.url|json_script:'other-user-profile-pic' }}
+
+    <script src="{% static 'chat/js/room.js' %}"></script>
+{% endblock %}
+

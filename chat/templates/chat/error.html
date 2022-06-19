@@ -1,0 +1,30 @@
+{% extends 'chat/layout.html' %} 
+
+{% block title %} Error {% endblock %}
+
+{% block body %} 
+
+    <div class="row error-row">
+        <div class="error-header">
+            <span>
+                <button id="open-left-sidebar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </button>
+            </span>
+            <span><h1><i class="fa fa-warning" style="padding-right: 10px;"></i> Error <i style="padding-left: 10px;" class="fa fa-warning"></i></h1></span>
+            <span>
+                <button id="open-friend-sidebar"><h1><i class="fas fa-user-friends"></i></h1></button>
+            </span>
+        </div>
+        <div class="error-container">
+            <div>
+                {% if err_msg %}
+                    <p> <i class="fa fa-warning" style="padding-right: 10px;"></i> {{ err_msg }} <i style="padding-left: 10px;" class="fa fa-warning"></i></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

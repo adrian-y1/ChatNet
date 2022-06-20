@@ -169,7 +169,7 @@ window.addEventListener('load', () => {
     console.log("Fully Loaded")
     setTimeout(() => {
         chatContainer.scrollTo({top: chatContainer.scrollHeight, behavior: 'smooth' }) 
-    }, 100);
+    }, 1000);
     console.log("Scrolled Bottom")
 })
 

@@ -153,7 +153,7 @@ globalChatContainer.onscroll = () => {
                 } else {
                     globalChatContainer.scrollTo({ top: 100, left: 100, behavior: 'smooth'})
                 }
-              }, 500)
+              }, 1000)
         }
     } else {
         document.querySelector('.loading-con').style.display = 'none'

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+
 from pathlib import Path
 import os
 from pickle import FALSE
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-w)nyf&l0xv1j8*0j+##e*w9mv!thx6ov&t@xmwu#a8e7e2y(r_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -81,10 +82,10 @@ WSGI_APPLICATION = 'chatapp.wsgi.application'
 ASGI_APPLICATION = 'chatapp.asgi.application'
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get("REDIS_URL", 'redis://localhost:6379')],
         },
     },
 }
@@ -138,6 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # To store files in the file system instead of the database
 # Using os.path.join makes sure the path to the directly is created no matter the OS the current user is using

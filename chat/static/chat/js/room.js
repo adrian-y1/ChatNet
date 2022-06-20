@@ -31,9 +31,9 @@ window.addEventListener('mouseup', function(event) {
 
 // Create a new websocket for the room name that was entered
 const chatSocket = new WebSocket(
-    'ws://'
+    'wss://'
     + window.location.host
-    + '/ws/chat/'
+    + '/wss/chat/'
     + other_user
     + '/'
 );

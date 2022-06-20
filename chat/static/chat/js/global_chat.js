@@ -30,9 +30,9 @@ window.addEventListener('mouseup', function(event) {
 
 
 const chatSocket = new WebSocket(
-    'ws://'
+    'wss://'
     + window.location.host
-    + '/ws/'
+    + '/wss/'
     + ' '
     
 );

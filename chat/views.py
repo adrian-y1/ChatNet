@@ -491,7 +491,6 @@ def change_password(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST['email']
-        password = request.POST["password"]
         n_password = request.POST['npassword']
         cn_password = request.POST['cnpassword']
 
@@ -503,10 +502,6 @@ def change_password(request):
             return render(request, "chat/change_password.html", {
                 "message": "Email field cannot be blank."
             }) 
-        if password == '':
-            return render(request, "chat/change_password.html", {
-                "message": "Password field cannot be blank."
-            }) 
         if n_password == '':
             return render(request, "chat/change_password.html", {
                 "message": "New Password field cannot be blank."
@@ -516,7 +511,7 @@ def change_password(request):
                 "message": "New Password Confirmation field cannot be blank."
             }) 
         
-        user_auth = authenticate(request, username=username, email=email, password=password)
+        user_auth = authenticate(request, username=username, email=email)
         
         if user_auth is not None:
             user = User.objects.get(username=username)

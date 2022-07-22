@@ -528,15 +528,41 @@ body {
     padding: 10px;
     width: 100%;
 }
+.login-form label {
+    display: none;
+}
 .login-input-group {
     width: 100%;
     padding: 10px;
 }
+.reset-password-fields {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.reset-password-fields input:last-child {
+    margin-bottom: 30px;
+}
+.reset-password-fields .helptext{
+    font-size: 14px;
+    padding-left: 0;
+    margin-left: 0;
+    color: white;
+}
+.reset-password-fields .errorlist {
+    list-style: none;
+    color: red;
+    font-weight: 600;
+    padding-left: 0;
+    margin-left: 0;
+}
+
 .login-input-group .input-group{
     display: flex;
     flex-wrap: nowrap;
 }
-.login-input-group .input-group input {
+.login-input-group .input-group input, .reset-password-fields input {
     border: none;
     outline: none;
     padding: 10px;
@@ -561,7 +587,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-.login-submit input {
+.login-submit input, .login-submit a {
     border: none;
     outline: none;
     width: 100%;
@@ -570,6 +596,10 @@ body {
     background-color: #609ad1;
     color: #ffffff;
     font-size: 17px;
+}
+.login-submit a {
+    text-align: center;
+    text-decoration: none;
 }
 #forgot-password {
     display: flex;
@@ -586,8 +616,9 @@ body {
 #forgot-password a:hover {
     text-decoration: underline;
 }
-.login-submit input:hover {
+.login-submit input:hover, .login-submit a:hover {
     background-color: #5383b1;
+    color: white;
 }
 .login-footer {
     display: flex;

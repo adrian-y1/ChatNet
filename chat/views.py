@@ -487,45 +487,6 @@ def outgoing_requests(request):
 def error_handling(request):
     return render(request, 'chat/error.html')
 
-def change_password(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST['email']
-        n_password = request.POST['npassword']
-        cn_password = request.POST['cnpassword']
-
-        if username == '':
-            return render(request, "chat/change_password.html", {
-                "message": "Username field cannot be blank."
-            }) 
-        if email == '':
-            return render(request, "chat/change_password.html", {
-                "message": "Email field cannot be blank."
-            }) 
-        if n_password == '':
-            return render(request, "chat/change_password.html", {
-                "message": "New Password field cannot be blank."
-            }) 
-        if cn_password == '':
-            return render(request, "chat/change_password.html", {
-                "message": "New Password Confirmation field cannot be blank."
-            }) 
-        
-        try:
-            get_user = User.objects.get(username=username, email=email)
-            get_user.password = make_password(n_password)
-            get_user.save()
-            return redirect('login')
-        except User.DoesNotExist:
-            return render(request, "chat/change_password.html", {
-                "message": "Invalid username and/or email."
-            }) 
-
-
-
-        
-    return render(request, 'chat/change_password.html')
-
 
 def login_view(request):
     if request.method == "POST":

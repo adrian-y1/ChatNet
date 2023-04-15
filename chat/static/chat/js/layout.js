@@ -24,9 +24,11 @@ search.addEventListener('input', e => {
 fetch('/all_friends')
 .then(res => res.json())
 .then(data => {
-    data.all_friends.forEach(d => {
-        all_friends.push(d.username)
-    })
+    if (data.length > 0) {
+        data.all_friends.forEach(d => {
+            all_friends.push(d.username)
+        })
+    }
 })
 
 const openFriendSidebar = document.getElementById('open-friend-sidebar')

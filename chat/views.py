@@ -209,7 +209,7 @@ def paginate_global_msg(request):
         for i in range(start, end):
             serialisation = [all_messages[i].serialize(), {'user_img': all_messages[i].user.profile.picture.url}]
             if serialisation not in data:
-                data.append(all_messages[i].serialize())
+                data.append([all_messages[i].serialize()])
 
 
     # Change the date from UTC to local timezone

@@ -24,7 +24,9 @@ if(dropupBtn != null){
 
 window.addEventListener('mouseup', function(event) {
     if(event.target != dropupContent && event.target.parentNode != dropupBtn){
-        dropupContent.style.display = 'none'
+        if (dropupContent !== null ) {
+            dropupContent.style.display = 'none'
+        }
     }
 })
 

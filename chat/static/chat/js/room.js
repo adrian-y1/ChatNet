@@ -48,7 +48,6 @@ chatSocket.onmessage = function(e) {
     const rooms = document.querySelectorAll('.latest-message')
 
     if (data.username === userName){
-        console.log(data.username, userName)
         el.innerHTML = `<li class="chat-right">
                             <div class="chat-msg-con">
                                 <div class="d-flex justify-content-end flex-column align-items-end">
@@ -179,7 +178,6 @@ document.querySelector('.loading-con').style.display = 'none';
 chatContainer.onscroll = () => {
     if(chatContainer.scrollTop === 0){
         if(counter < stop_execution){
-            console.log(counter, stop_execution)
             document.querySelector('.loading-con').style.display = 'flex';
             run_animate();
             setTimeout(function(){

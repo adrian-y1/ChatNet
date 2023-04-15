@@ -159,7 +159,9 @@
         const meatballMenu = document.querySelector('.profile-dropdown-content')
         const meatballBtn = document.querySelector('.profile-meatball-menu')
         
-        meatballMenu.style.display = 'none'
+        if (meatballMenu !== null) {
+            meatballMenu.style.display = 'none'
+        }
 
         meatballBtn.onclick = () => {
             if(meatballMenu.style.display === 'block') {

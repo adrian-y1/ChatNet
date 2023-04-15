@@ -41,7 +41,6 @@ const chatSocket = new WebSocket(
 
 chatSocket.onconnect = function (e) {
     const data = JSON.parse(e.data)
-    console.log(data)
 }
 
 chatSocket.onmessage = function(e) {

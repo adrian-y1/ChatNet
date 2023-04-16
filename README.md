@@ -1,164 +1,113 @@
-# ChatNet - CS50W Capstone Project 2022
+# ChatNet
 
-## Overview 
----
-*ChatNet* is a chatting web application designed for users to communicate with other fellow users via chat messaging. There are various features that *ChatNet* offers to its users which are but not limited to, *Friend Request System, Global Chat Messaging, Private Chat Messaging, Profile Picture Setting,* and many more. Users are also provided with an Authentication System whereby they are able to create their own accounts, change their passwords as well as setting their own profile pictures to help establish their online presence and their unique identity. The implementation of *ChatNet* greatly utilized the usage of `Django-Channels` to create WebSockets/Chat Rooms that run on Async Consumers where users can communicate with each other. The `pillow` libary as well as `Django-Signals` was also used to give the user the ability to change/update their profile image.
+Visit website: [chatnet.up.railway.app](https://chatnet.up.railway.app/)
 
+## Overview
+
+ChatNet is a web application that enables users to chat with each other in real-time. It has various features such as a Friend Request System, Global Chat Messaging, Private Chat Messaging, Profile Picture Setting, infinite scroll and more. Users can create accounts, change passwords, and set profile pictures to establish their unique online presence. `Django-Channels` was used to create WebSockets/Chat Rooms for `Async Consumers` to facilitate user communication, and the `pillow` library and `Django-Signals` were used to allow users to update their profile image.
+
+This application was developed as the final project for the "[CS50's Web Programming with Python and JavaScript course](https://cs50.harvard.edu/web/2020/)" course offered by Harvard University.
+
+## Features Overview
+
+- Login, Register & Forgot Password
+- Real-time text messaging
+- Private chat & Global chat
+- Infinite Scroll
+- Markdown support
+- Profile Picture
+- Message Timestamps & User details on each message
+- Send/Cancel Friend Request
+- Accept/Decline Friend Request
+- Remove Friend
+- Timestamps use the user's timezone
+- Incoming & Outgoing Friend Requests
+- Search users/friends feature created with Ajax requests
+- API Endpoints in views.py are used extensively with Ajax requests
+- DOM manipulation
+- Reponsive design that works on different screen sizes
+- User-friendly UI
+- Visually Appealing design
 
 ## Global Chat/Home
----
-*Global Chat* is a public chat messaging view where any authenticated user can send a message to the group and this message is accessible and viewed by everyone. As mentioned earlier, to send a message the user must have an account registered, however users who are not yet authenticated can still view the Global Chat messages although they are unable to communicate as such. *Global Chat* uses WebSockets to connect users to the chat where they can view and communicate with others.
-### Global Chat Infinite Scroll
-*Global Chat*'s secondary feature (primary is messaging), is *Infinite Scroll*. With *Infinite Scroll*, users will only be able to see the latest 10 messages (if any) of the chat when the page is loaded. If users would like to load older messages, they can do so by scrolling to the top of the chat and load the next 10 message and so on. *Infinite Scroll* helps increase the User Experience due its functionality of only needing to scroll to the top of the chat to view older messages and it also decreases server load times since the *Global Chat View* will only need to load 10 messages when the page is loaded compared to loading 100s or even thousands of messages all at once will decrease the User's Experience due to high server load times.  
-  
-Infinite Scroll is implemented by creating an API that sends over the latest 10 messages every time the user scrolls to the top of the chat room. Creating Infinite Scroll, i referenced Brian's implementation of a basic one in `Lecture 6 - User Interfaces` and built greatly upon it and made it more complex. 
 
-### Other Features
-* Markdown
-
-    - Users can utilise *Markdown Syntax* when sending messages. *Markdown* allows users to create various HTML elements by using specific and user friendly syntax. A dropup menu is provided in the message section to users who are not familiar with *Markdown* to view its functionality and syntax.
-
-* Timestamp
-
-    - Every message has a timestamp that specifies how long ago the message was sent.
-
-* User Details 
-
-    - Every message includes details about what the message was, when it was sent but also reveals the user that sent the message and their Profile Picture.
-
-
-## Authentication System
----
-*ChatNet's* Authentication System includes the following features:
-- Register
-
-    - With *Register*, users will be able to create their own accounts by filling out the registration form that is provided and must follow the criteria in order for their account to get created. Through this view, users can navigate to other views such as *Login* and *Change Password*.
-
-- Login
-    - In *Login*, users can sign in to the account they have created and use the website. Here they can also navigate to *Register* and *Change Password*.
-- Change Password
-    - Here, users who already have an account can change their password to a new one. In this view they can also navigate to *Login* and *Register*.
-
-
-## Friend Request System
----
-With the *Friend Request System*, users can send friend requests to other users who have an account and add them as a friend. The *Friend Request System* consists of the following features:
-- Add Friend
-    - When users choose **Add Friend**, a friend request will be sent to the user that it was specified to. 
-- Cancel Friend Request
-    - This feature is only available to the user who sent the friend request in the first place and the corresponding user who it was sent to has not responded with an answer yet. When users click this button, the friend request is canceled and deleted as if it was never there. 
-- Accept 
-    - This feature is only available to the users whom the friend request was sent to. If the user clicks **Accept** then they become friends.
-- Decline
-    - This feature is also only available to the users whom the friend request was sent to. If the user clicks **Decline**, the request is then deleted and the two users do not become friends.
-- Remove Friend
-    - This features is only avaialble to users whom are already friends. Clicking this option will remove them as friends. Both users have this option.
+The Global Chat feature of the app enables registered users to send and receive messages in a public chat view accessible by all authenticated users. Utilizing WebSockets, users can easily communicate with each other in real-time. Unregistered users can view the chat messages, but they are not allowed to participate in the conversation until they have created an account.
 
 ## Private Chat
----
-*Private Chat* is a chat messaging system whereby two users who are friends can message each other in a private One-on-One chat. The two users must be authenticated to use and also view this feature and must be friends. Similar to *Global Chat*, *Private Chat* uses `WebSockets` and also has the following features:
-### Private Chat Infinite Scroll
-*Private Chat*'s Infinite Scroll functions the exact same as that of *Global Chat's*. Only the latest 10 messages are loaded when the user visits the chat and to view older messages, the user must scroll to the top of the chat. 
 
-### Other Features (Similar to Global Chat)
-* Markdown
-    - Users can utilise *Markdown Syntax* when sending messages. *Markdown* allows users to create various HTML elements by using specific and user friendly syntax. A dropup menu is provided in the message section to users who are not familiar with *Markdown* to view its functionality and syntax.
+Private Chat allows two authenticated users who are friends to communicate with each other in a private one-on-one chat messaging system. To use this feature, the two users must be friends and must have registered accounts. Like Global Chat, Private Chat also utilizes WebSockets for real-time messaging
 
-* Timestamp
+## Infinite Scroll
 
-    - Every message has a timestamp that specifies how long ago the message was sent.
+The chat messaging feature in both private and global chat uses Infinite Scroll to load only the latest 10 messages when the page is loaded. Users can load older messages by scrolling to the top of the chat. This feature helps improve user experience and reduces server load times since the chat view only needs to load 10 messages at a time. It was implemented by creating an API that sends the latest 10 messages every time the user scrolls to the top of the chat, building upon Brian's basic implementation in [Lecture 6 - User Interfaces](https://cs50.harvard.edu/web/2020/weeks/6/).
 
-* User Details 
+### More Chatting Features
 
-    - Every message includes details about what the message was, when it was sent but also reveals the user that sent the message and their Profile Picture.
+- Markdown Support:
+  - ChatNet supports Markdown syntax in messages. This allows users to easily format their messages using simple and intuitive syntax. A drop-down menu is provided for users who are not familiar with Markdown to view its functionality and syntax.
+- Timestamps:
+  - Each message displays a timestamp that indicates when the message was sent, allowing users to easily track the timing of conversations.
+- User Details:
+  - Each message displays the user's name, profile picture, and message content, providing users with more context about the message they are reading.
 
-## Profile
----
-In a user's *Profile*, details such as their name, email address, join date as well as the amount of friends they have are displayed. *Profile* Includes various features such as:
-- Profile Picture
-    - When users view their own profile, they are able to click the camera button in order to change their profile picture if desired. This picture will be displayed anywhere their name is associated with. 
-    - This feature is created by using the `pillow` library and `Django-Signals` module. 
+## Authentication System
+
+- Register
+
+  - Register allows users to create their own accounts by filling out a registration form. Users must follow specific criteria to successfully create their account. This view also provides access to other authentication views, such as Login and Change Password.
+
+- Login
+
+  - Login enables users to sign in to their account and access the website. Users can also navigate to other authentication views, such as Register and Change Password.
+
+- Change Password
+
+  - Change Password enables users to update their password. In this view, users can also navigate to other authentication views, such as Login and Register.
+
+## Friend Request System
+
+The Friend Request System enables users to send friend requests to other users who have an account and add them as friends. This system consists of the following features:
+
 - Add Friend
-    - Users can send friend requests to other users when they are viewing that user's if that user is not their current friend.
+  - When users click on "Add Friend", a friend request is sent to the specified user.
 - Cancel Friend Request
-    - Users who sent the request can also cancel it here.
-- Accept 
-    - Users whom the friend request was sent to can view the sender's profile and accept their request in order to become friends and chat privately.
+  - If the user who sent the friend request has not yet received a response, they can cancel the request by clicking on "Cancel Friend Request".
+- Accept
+  - Users who receive a friend request can click on "Accept" to become friends with the sender.
 - Decline
-    - Users whom the friend request was sent to can view the sender's profile and decline their request and then the request will be deleted.
-- Message
-    - If the current user's profile that is being viewied is friends with the currently authenticated user, then that user has the option to click **message* to be redirected to the private chat room.
+  - If users choose to decline a friend request, they can click on "Decline" and the request will be deleted.
 - Remove Friend
-    - Users whom are already friends can remove each other as friends via each other's profile. 
-
-## Friends
----
-In this view, users will be able to see all their people they have as friends. Features include:
-- User Details
-    - The username and profile picture of that friend will be displayed here. Clicking either will take you to their profile page.
-- Message
-    - Clicking **message** will take you to the private chat room that has you and that friend. 
-- Remove
-    - Clicking **remove** you can remove the current friend from your friends list.
-- Search
-    - You can search through your friends list for your friend's username here by typing their full username or substrings. 
-
-## Add Users
----
-In this view, there will be a list of all the users who you do not currently have as friends. Features that *Add Users* includes are:
-- User Details
-    - The username and profile picture of that user will be displayed here. Clicking either will take you to their profile page.
-- Add Friend
-    - You can send friend requests to other users here by clicking **Add Friend**.
-- Cancel Friend Request
-    - You can also cancel the friend request you sent by clicking **Cancel**.
-- Accept 
-    - Here you can also see if a user has sent you a friend request, if so you can choose to **Accept** their friend request and become friends.
-- Decline
-    - Similary, you can also **Decline** the friend request sent to you.
-- Search
-    - You can search through the list of all non-friended users here by typing their full username or substrings. 
-
-## Incoming
----
-*Incoming* displays all of the incoming friend requests that other users have sent for you. Features:
-- User Details
-    - The username and profile picture of the users will be displayed here. Clicking either will take you to their profile page.
-- Accept 
-    - Here you can choose to **Accept** friend requests sent to you to become friends with the sender.
-- Decline
-    - Similary, you can also **Decline** the friend requests sent to you.
-
-## Outgoing
----
-*Outgoing* is the opposite of *incoming*. Here you will see all the friend requests of whom you have sent. Features Include:
-- User Details
-    - The username and profile picture of the users will be displayed here. Clicking either will take you to their profile page.
-- Cancel
-    - Clicking **cancel** will cancel the friend request you have sent. 
+  - Once users become friends, they can choose to remove the friendship by clicking on "Remove Friend". This option is available to both users.
 
 ## Friend Sidebar
----
-This sidebar is displayed on the right side of your screen and is accessible no matter what page you are on. The *Friends Sidebar* displays a full list of your current friends including the following feautres:
+
+The Friend Sidebar is a convenient feature accessible from any page of the website, displayed on the right-hand side of the screen. It lists all of your current friends and includes the following features:
+
 - Search
-    - You can search for a specific friend at any time by typing in their username or substrings of their username. 
+  - You can easily search for a specific friend by typing in their username or a substring of their username. This feature is implemented using DOM manipulations and Ajax request.
 - User Details
-    - You can view their username and current profile picture. Clicking on either will take you to their profile page.
+  - You can view your friends' usernames and current profile pictures, and clicking on either will take you to their profile page.
 - Message
-    - Clicking the message icon will take you directly to the private chat of you and that friend.
+  - Clicking the message icon will take you directly to the private chat between you and that friend.
 - Latest Message
-    - The latest message between you and that friend will be displayed under the friend's name and it will involve details such as who the latest message was sent by and part of the message content it self.
+  - The latest message between you and that friend will be displayed under the friend's name, showing who sent it and part of the message content.
 
-## Navigation Sidebar
----
-This sidebar is displayed on the left of your screen and is also accessible no matter what page you are on. This sidebar displays links to the following pages:
-- Home (Global Chat)
-- Profile (Your Profile Page)
-- Friends
-- Add Users
-- Incoming
-- Outgoing  
+## Difficulties
 
-*Incoming* and *outgoing* have a bell icon that shakes if you have 1 or more requests in them to notify you.
+Developing this project has been one of the most challenging experiences for me as a web developer. I had to learn a variety of new concepts and technologies, such as Django-channels, websockets, asynchronous and synchronous programming, consumers, channels, and routes, which were previously unfamiliar to me. Implementing the real-time chat messaging feature with a database to store the chat messages and their details was by far the most challenging part of the project.
 
-At the bottom of the sidebar your profile picture and username are also displayed. Clicking on either will take you to your profile page. A logout icon is also displayed which if clicked, will log you out of your account.
+## Overcoming Difficulties
+
+To successfully implement the real-time chat messaging feature using django-channels library, I adopted a systematic approach that involved dedicating the first week to learning about the library and its dependencies. During this period, I took the time to carefully read through the documentation, take notes, and plan how to go about tackling various features of the website such as the friend request system, infinite scroll, authentication system, and the messaging feature itself. I documented everything, including ideas and approaches, problems and solutions, and UI features to implement.
+
+I also sought assistance from various online communities such as Discord, YouTube videos, and forums whenever I encountered challenges. By doing so, I was able to obtain useful tips and suggestions from other experienced developers who have previously faced similar challenges. This helped to educate me to avoid making costly mistakes and fix mistakes that i have already made.
+
+Throughout the development process, I kept a keen eye on the overall user experience, ensuring that the website is both visually appealing and user-friendly.
+
+Overall, while the project was challenging, the systematic approach, dedication, and willingness to seek help when needed were key to overcoming the difficulties and delivering a good quality website.
+
+## Conclusion
+
+In conclusion, building this complex project such as a real-time messaging system with a friend request feature was a very challenging and overwhelming task. However, by dedicating time to learning the necessary technologies and planning out the features and implementation approach, it was possible to overcome these difficulties. Utilizing resources such as documentation, online communities, and tutorials was very helpful in finding solutions to problems that arose during the development process. Overall, taking a structured and strategic approach, along with perseverance and a willingness to learn, helped lead me to a successful implementation of a challenging project.
+
+With the knowldege and practical experience i gained from this project, i have been able to use it whilst developing the [Facebook Clone](https://github.com/adrian-y1/odin-facebook) project.

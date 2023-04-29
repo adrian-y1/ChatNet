@@ -4,7 +4,7 @@ Visit website: [chatnet.up.railway.app](https://chatnet.up.railway.app/)
 
 ## Overview
 
-ChatNet is a web application that enables users to chat with each other in real-time. It has various features such as a Friend Request System, Global Chat Messaging, Private Chat Messaging, Profile Picture Setting, infinite scroll and more. Users can create accounts, change passwords, and set profile pictures to establish their unique online presence. `Django-Channels` was used to create WebSockets/Chat Rooms for `Async Consumers` to facilitate user communication, and the `pillow` library and `Django-Signals` were used to allow users to update their profile image.
+ChatNet is a web application that enables users to chat with each other in real-time. It has various features such as a Friend Request System, Global Chat Messaging, Private Chat Messaging, Profile Picture Setting, infinite scroll and more. Users can create accounts, change passwords, and set profile pictures to establish their unique online presence. `django-channels` was used to create WebSockets/Chat Rooms for `Async Consumers` to facilitate user communication, and the `pillow` library and `django-signals` were used to allow users to update their profile image.
 
 This application was developed as the final project for the "[CS50's Web Programming with Python and JavaScript course](https://cs50.harvard.edu/web/2020/)" course offered by Harvard University.
 
